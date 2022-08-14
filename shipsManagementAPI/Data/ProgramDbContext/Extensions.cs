@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using shipsManagementAPI.Data.Models;
 
-namespace shipsManagementAPI.Data.AppDbContext
+namespace shipsManagementAPI.Data.ProgramDbContext
 {
     public static class Extensions
     {

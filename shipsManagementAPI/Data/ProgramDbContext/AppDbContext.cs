@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using shipsManagementAPI.Data.Models;
 
-namespace shipsManagementAPI.Data.AppDbContext
+namespace shipsManagementAPI.Data.ProgramDbContext
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
-
+            
         }
 
         public DbSet<Customer> Customers { get; set; }

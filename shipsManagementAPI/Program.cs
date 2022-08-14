@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using shipsManagementAPI.Data.AppDbContext;
+using shipsManagementAPI.Data.ProgramDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
