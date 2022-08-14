@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Nh100PdMcfPka7xligYtgYklRQ++HwlBAbc+Gvlchvo=",
+  "Source": "shipsManagementAPI",
+  "BasePath": "_content/shipsManagementAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
