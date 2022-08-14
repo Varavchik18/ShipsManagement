@@ -58,3 +58,6 @@ C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\obj\Debug\net7
 C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\obj\Debug\net7.0\shipsManagementAPI.pdb
 C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\obj\Debug\net7.0\shipsManagementAPI.genruntimeconfig.cache
 C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\obj\Debug\net7.0\ref\shipsManagementAPI.dll
+C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\bin\Debug\net7.0\MediatR.dll
+C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\bin\Debug\net7.0\MediatR.Contracts.dll
+C:\Users\pasha\source\projects\shipsManagement\shipsManagementAPI\bin\Debug\net7.0\MediatR.Extensions.Microsoft.DependencyInjection.dll

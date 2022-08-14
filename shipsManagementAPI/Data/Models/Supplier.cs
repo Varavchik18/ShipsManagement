@@ -10,13 +10,9 @@ namespace shipsManagementAPI.Data.Models
         [Required]
         public string SupplierName { get; set; }
 
-        [Required]
         public int SupplierPhone { get; set; }
 
-        [Required]
         public string SupplierAddress { get; set; }
-
-        [Required]
         public string SupplierCity { get; set; }
 
         public int AmountOfCustomers { get; set; }
