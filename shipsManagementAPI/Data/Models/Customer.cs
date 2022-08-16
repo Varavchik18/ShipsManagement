@@ -9,9 +9,9 @@ namespace shipsManagementAPI.Data.Models
         public int Id { get; set; }
         [Required]
         public string CustomerName { get; set; }
-        public int? CustomerPhone { get; set; }
+        public long? CustomerPhone { get; set; }
         public string? CustomerAddress { get; set; }
-        public string? City { get; set; }
+        public string? CustomerCity { get; set; }
         public int AmountOfOrders { get; set; }
         public virtual ICollection<Order> SupplierCustomers { get; set; }
     }

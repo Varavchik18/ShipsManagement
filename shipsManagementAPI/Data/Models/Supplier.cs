@@ -10,7 +10,7 @@ namespace shipsManagementAPI.Data.Models
         [Required]
         public string SupplierName { get; set; }
 
-        public int? SupplierPhone { get; set; }
+        public long? SupplierPhone { get; set; }
 
         public string SupplierAddress { get; set; }
         public string SupplierCity { get; set; }
@@ -19,8 +19,9 @@ namespace shipsManagementAPI.Data.Models
 
         [Required]
         public int AmountOfShips { get; set; }
+        [Required]
 
-        public Country? Country { get; set; }
+        public int CountryId { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Order> SupplierCustomers { get; set; }

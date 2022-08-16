@@ -50,18 +50,18 @@ namespace shipsManagementAPI.Migrations
                     b.Property<int>("AmountOfOrders")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
+                    b.Property<string>("CustomerAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerAddress")
+                    b.Property<string>("CustomerCity")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerPhone")
-                        .HasColumnType("int");
+                    b.Property<long?>("CustomerPhone")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -79,32 +79,37 @@ namespace shipsManagementAPI.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EmployeeGenderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierCompanyId")
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idEmployeeGender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idSupplierCompany")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GenderId");
+                    b.HasIndex("EmployeeGenderId");
 
-                    b.HasIndex("SupplierCompanyId");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Employees");
                 });
@@ -207,8 +212,8 @@ namespace shipsManagementAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SupplierPhone")
-                        .HasColumnType("int");
+                    b.Property<long?>("SupplierPhone")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -219,21 +224,13 @@ namespace shipsManagementAPI.Migrations
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Employee", b =>
                 {
-                    b.HasOne("shipsManagementAPI.Data.Models.EmployeeGender", "Gender")
+                    b.HasOne("shipsManagementAPI.Data.Models.EmployeeGender", null)
                         .WithMany("Employees")
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeGenderId");
 
-                    b.HasOne("shipsManagementAPI.Data.Models.Supplier", "SupplierCompany")
+                    b.HasOne("shipsManagementAPI.Data.Models.Supplier", null)
                         .WithMany("Employees")
-                        .HasForeignKey("SupplierCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Gender");
-
-                    b.Navigation("SupplierCompany");
+                        .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Order", b =>
@@ -244,7 +241,7 @@ namespace shipsManagementAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("shipsManagementAPI.Data.Models.OrderStatus", "OrderStatus")
+                    b.HasOne("shipsManagementAPI.Data.Models.OrderStatus", null)
                         .WithMany("Orders")
                         .HasForeignKey("OrderStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -258,20 +255,16 @@ namespace shipsManagementAPI.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("OrderStatus");
-
                     b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Supplier", b =>
                 {
-                    b.HasOne("shipsManagementAPI.Data.Models.Country", "Country")
+                    b.HasOne("shipsManagementAPI.Data.Models.Country", null)
                         .WithMany("Suppliers")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Country", b =>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using shipsManagementAPI.API.DTOs;
 using shipsManagementAPI.Data.Models;
 using shipsManagementAPI.Data.ProgramDbContext;
 
@@ -19,7 +20,7 @@ namespace shipsManagementAPI.Data.Repository
 
         public void DeleteCustomer(int customerId)
         {
-            Customer customer = _context.Customers.Find(customerId);
+            Customer customer = GetCustomerById(customerId);
             _context.Customers.Remove(customer);
         }
 
@@ -29,14 +30,25 @@ namespace shipsManagementAPI.Data.Repository
             return _context.Customers.Find(customerId);
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public List<Customer> GetCustomers()
         {
             return _context.Customers.ToList();
         }
 
-        public void InsertCustomer(Customer customer)
+        public Customer InsertCustomer(CreateCustomerDTO customer)
         {
-            _context.Customers.Add(customer);
+            var result = _context.Customers.Add(
+                new Customer
+                {
+                    CustomerName = customer.CustomerName,
+                    CustomerPhone = customer.CustomerPhone ?? null,
+                    CustomerAddress = customer.CustomerAddress ?? null,
+                    CustomerCity = customer.CustomerCity ?? null,
+                    AmountOfOrders = customer.AmountOfOrders
+                }
+            ).Entity;
+
+            return result;
         }
 
         public void Save()
@@ -44,9 +56,17 @@ namespace shipsManagementAPI.Data.Repository
             _context.SaveChanges();
         }
 
-        public void UpdateCustomer(Customer customer)
+        public Customer UpdateCustomer(int customerId, UpdateCustomerDTO customer)
         {
-            _context.Entry(customer).State = EntityState.Modified;
+            var customerToUpdate = GetCustomerById(customerId);
+
+            customerToUpdate.CustomerName = customer.CustomerName;
+            customerToUpdate.CustomerPhone = customer.CustomerPhone;
+            customerToUpdate.CustomerAddress = customer.CustomerAddress;
+            customerToUpdate.CustomerCity = customer.CustomerCity;
+            customerToUpdate.AmountOfOrders = customer.AmountOfOrders;
+
+            return customerToUpdate;
         }
 
         private bool disposed = false;

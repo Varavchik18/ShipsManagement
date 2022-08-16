@@ -9,7 +9,6 @@ namespace shipsManagementAPI.Data.Models
     {
         public int Id { get; set; }
         public string OrderStatusName { get; set; }
-
         public ICollection<Order> Orders { get; set; }
     }
 }

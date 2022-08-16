@@ -16,15 +16,11 @@ namespace shipsManagementAPI.Data.Models
         [Required]
         public string LastName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public int PhoneNumber { get; set; }
 
         public int? Age { get; set; }
         public int? Salary { get; set; }
-
-        [Required]
-        public EmployeeGender Gender { get; set; }
-
-        [Required]
-        public Supplier SupplierCompany { get; set; }
+        public int idEmployeeGender { get; set; }
+        public int idSupplierCompany { get; set; }
     }
 }
