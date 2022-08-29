@@ -326,6 +326,21 @@ public class ShipsManagementController : ControllerBase
         }
     }
 
+    [HttpPost("UpdateOrderStatus/{id}")]
+    public async Task<ActionResult> UpdateOrderStatus([FromRoute] int id, [FromBody] string orderStatus)
+    {
+        try
+        {
+            var result = _orderRepo.SetOrderStatus(orderStatus, id);
+            _orderRepo.Save();
+            return Ok(result);
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+    }
+
     [HttpDelete("DeleteOrder/{id}")]
     public async Task<ActionResult> DeleteOrder([FromRoute] int id)
     {
@@ -345,10 +360,16 @@ public class ShipsManagementController : ControllerBase
 
     #region Order queries
 
-    [HttpGet("Order/{id}")]
-    public async Task<Order> GetOrder([FromRoute] int id)
+    [HttpGet("Order/{idSupplier}")]
+    public async Task<Order> GetOrderBySupplierId([FromRoute] int idSupplier)
     {
-        return _orderRepo.GetOrderById(id);
+        return _orderRepo.GetOrderBySupplierId(idSupplier);
+    }
+
+    [HttpGet("Order/{idCustomer}")]
+    public async Task<Order> GetOrderByCustomerId([FromRoute] int idCustomer)
+    {
+        return _orderRepo.GetOrderByCustomerId(idCustomer);
     }
 
     [HttpGet("Orders")]

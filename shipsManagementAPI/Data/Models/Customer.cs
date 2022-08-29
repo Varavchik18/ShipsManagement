@@ -13,6 +13,6 @@ namespace shipsManagementAPI.Data.Models
         public string? CustomerAddress { get; set; }
         public string? CustomerCity { get; set; }
         public int AmountOfOrders { get; set; }
-        public virtual ICollection<Order> SupplierCustomers { get; set; }
+        public virtual ICollection<Order> CustomersOrders { get; set; }
     }
 }

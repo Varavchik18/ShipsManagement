@@ -38,11 +38,10 @@ namespace shipsManagementAPI.Data.Repository
             var supplierCreated = new Supplier
             {
                 SupplierName = supplier.SupplierName,
-                SupplierAddress = supplier.SupplierAddress,
-                SupplierCity = supplier.SupplierCity,
-                SupplierPhone = supplier.SupplierPhone,
+                SupplierAddress = supplier.SupplierAddress ?? null,
+                SupplierCity = supplier.SupplierCity ?? null,
+                SupplierPhone = supplier.SupplierPhone ?? null,
                 AmountOfShips = supplier.AmountOfShips,
-                AmountOfCustomers = supplier.AmountOfCustomers ?? 0,
                 CountryId = supplier.CountryId
             };
             return _context.Suppliers.Add(supplierCreated).Entity;
@@ -53,11 +52,10 @@ namespace shipsManagementAPI.Data.Repository
             var supplierToUpdate = this.GetSupplierById(supplierId);
 
             supplierToUpdate.SupplierName = supplier.SupplierName;
-            supplierToUpdate.SupplierPhone = supplier.SupplierPhone;
-            supplierToUpdate.SupplierCity = supplier.SupplierCity;
-            supplierToUpdate.SupplierAddress = supplier.SupplierAddress;
+            supplierToUpdate.SupplierPhone = supplier.SupplierPhone ?? null;
+            supplierToUpdate.SupplierCity = supplier.SupplierCity ?? null;
+            supplierToUpdate.SupplierAddress = supplier.SupplierAddress ?? null;
             supplierToUpdate.AmountOfShips = supplier.AmountOfShips;
-            supplierToUpdate.AmountOfCustomers = supplier.AmountOfCustomers;
             supplierToUpdate.CountryId = supplier.CountryId;
 
             return supplierToUpdate;
@@ -95,6 +93,12 @@ namespace shipsManagementAPI.Data.Repository
         {
             return _context.Countries.Find(countryId);
         }
+
+        // public Country GetCountryByIdSupplier(int supplierId)
+        // {
+        //     var countries =  _context.Countries.ToList();
+        //     var result = countries.Where
+        // }
 
         public void DeleteCountry(int countryId)
         {
@@ -147,9 +151,9 @@ namespace shipsManagementAPI.Data.Repository
                 Age = employee.Age ?? 0,
                 Salary = employee.Salary ?? 0,
                 idEmployeeGender = employee.idEmployeeGender,
-                idSupplierCompany = employee.idSupplierCompany,
+                idSupplier = employee.idSupplierCompany,
             }).Entity;
-        
+
             return result;
         }
 
@@ -163,7 +167,7 @@ namespace shipsManagementAPI.Data.Repository
             employeeToUpdate.Age = employee.Age ?? 0;
             employeeToUpdate.Salary = employee.Salary ?? 0;
             employeeToUpdate.idEmployeeGender = employee.idEmployeeGender;
-            employeeToUpdate.idSupplierCompany = employee.idSupplierCompany;
+            employeeToUpdate.idSupplier = employee.idSupplierCompany;
 
             return employeeToUpdate;
         }

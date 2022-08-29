@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using shipsManagementAPI.API.DTOs;
 using shipsManagementAPI.Data.Models;
+using shipsManagementAPI.Data.Models.WellKnownProperty;
 using shipsManagementAPI.Data.ProgramDbContext;
 
 namespace shipsManagementAPI.Data.Repository
@@ -20,6 +21,11 @@ namespace shipsManagementAPI.Data.Repository
 
 
         private bool disposed = false;
+
+        public OrderRepository(AppDbContext context)
+        {
+            _context = context;
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -46,13 +52,19 @@ namespace shipsManagementAPI.Data.Repository
             return _context.Orders.ToList();
         }
 
-        public Order GetOrderById(int orderId)
+        public Order GetOrderBySupplierId(int orderSupplierId)
         {
-            return _context.Orders.Find(orderId);
+            return _context.Orders.Find(orderSupplierId);
+        }
+
+        public Order GetOrderByCustomerId(int orderCustomerId)
+        {
+            return _context.Orders.Find(orderCustomerId);
         }
 
         public Order InsertOrder(CreateOrderDTO order)
         {
+            var orderStatusCreated = _context.OrderStatuses.ToList().Where(c => c.OrderStatusName == WKPStatus.Created).FirstOrDefault();
             var result = _context.Orders.Add(new Order
             {
                 CustomerId = order.customerId,
@@ -60,7 +72,7 @@ namespace shipsManagementAPI.Data.Repository
                 OrderTitle = order.OrderTitle,
                 Destination = order.Destination,
                 OfferValueAmount = order.OfferValueAmount,
-                OrderStatusId = order.OrderStatusId,
+                OrderStatusId = orderStatusCreated.Id,
                 Notes = order.Notes ?? null,
             }).Entity;
 
@@ -69,21 +81,37 @@ namespace shipsManagementAPI.Data.Repository
 
         public void DeleteOrder(int orderId)
         {
-            var order = GetOrderById(orderId);
+            var order = GetOrderBySupplierId(orderId);
             _context.Orders.Remove(order);
         }
 
-        public Order UpdateOrder(int orderId, UpdateOrderDTO order)
+        public Order UpdateOrder(int orderSupplierId, UpdateOrderDTO order)
         {
-            var orderToUpdate = GetOrderById(orderId);
+            var orderToUpdate = GetOrderBySupplierId(orderSupplierId);
+            var orderStatusToSet = _context.OrderStatuses.ToList().Where(c => c.OrderStatusName == order.OrderStatus).FirstOrDefault();
 
             orderToUpdate.OrderTitle = order.OrderTitle;
             orderToUpdate.Destination = order.Destination;
             orderToUpdate.OfferValueAmount = order.OfferValueAmount;
-            orderToUpdate.OrderStatusId = order.OrderStatusId;
+            if (orderStatusToSet != null)
+                orderToUpdate.OrderStatusId = orderStatusToSet.Id;
             orderToUpdate.Notes = order.Notes ?? null;
 
             return orderToUpdate;
+        }
+
+        public int SetOrderStatus(string orderStatus, int orderId)
+        {
+            var orderToUpdate = GetOrderBySupplierId(orderId);
+            var orderStatusToSet = _context.OrderStatuses.ToList().Where(c => c.OrderStatusName == orderStatus).FirstOrDefault();
+
+            if (orderStatusToSet is null || orderStatusToSet == default)
+                return 0;
+            else
+            {
+                orderToUpdate.OrderStatusId = orderStatusToSet.Id;
+                return orderStatusToSet.Id;
+            }
         }
 
         #endregion

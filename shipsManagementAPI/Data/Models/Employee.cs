@@ -21,6 +21,6 @@ namespace shipsManagementAPI.Data.Models
         public int? Age { get; set; }
         public int? Salary { get; set; }
         public int idEmployeeGender { get; set; }
-        public int idSupplierCompany { get; set; }
+        public int idSupplier { get; set; }
     }
 }

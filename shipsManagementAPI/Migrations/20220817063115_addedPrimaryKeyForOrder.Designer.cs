@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shipsManagementAPI.Data.ProgramDbContext;
 
@@ -11,9 +12,10 @@ using shipsManagementAPI.Data.ProgramDbContext;
 namespace shipsManagementAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220817063115_addedPrimaryKeyForOrder")]
+    partial class addedPrimaryKeyForOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace shipsManagementAPI.Migrations
                     b.Property<int>("idEmployeeGender")
                         .HasColumnType("int");
 
-                    b.Property<int>("idSupplier")
+                    b.Property<int>("idSupplierCompany")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -139,6 +141,9 @@ namespace shipsManagementAPI.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -156,7 +161,7 @@ namespace shipsManagementAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SupplierId", "CustomerId");
+                    b.HasKey("SupplierId", "CustomerId", "OrderId");
 
                     b.HasIndex("CustomerId");
 
@@ -233,7 +238,7 @@ namespace shipsManagementAPI.Migrations
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Order", b =>
                 {
                     b.HasOne("shipsManagementAPI.Data.Models.Customer", null)
-                        .WithMany("CustomersOrders")
+                        .WithMany("SupplierCustomers")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -245,7 +250,7 @@ namespace shipsManagementAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("shipsManagementAPI.Data.Models.Supplier", null)
-                        .WithMany("SupplierOrders")
+                        .WithMany("SupplierCustomers")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -267,7 +272,7 @@ namespace shipsManagementAPI.Migrations
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.Customer", b =>
                 {
-                    b.Navigation("CustomersOrders");
+                    b.Navigation("SupplierCustomers");
                 });
 
             modelBuilder.Entity("shipsManagementAPI.Data.Models.EmployeeGender", b =>
@@ -284,7 +289,7 @@ namespace shipsManagementAPI.Migrations
                 {
                     b.Navigation("Employees");
 
-                    b.Navigation("SupplierOrders");
+                    b.Navigation("SupplierCustomers");
                 });
 #pragma warning restore 612, 618
         }

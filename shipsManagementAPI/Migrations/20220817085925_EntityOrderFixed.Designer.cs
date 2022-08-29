@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shipsManagementAPI.Data.ProgramDbContext;
 
@@ -11,9 +12,10 @@ using shipsManagementAPI.Data.ProgramDbContext;
 namespace shipsManagementAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220817085925_EntityOrderFixed")]
+    partial class EntityOrderFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace shipsManagementAPI.Migrations
                     b.Property<int>("idEmployeeGender")
                         .HasColumnType("int");
 
-                    b.Property<int>("idSupplier")
+                    b.Property<int>("idSupplierCompany")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

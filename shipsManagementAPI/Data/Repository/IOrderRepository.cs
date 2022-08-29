@@ -10,10 +10,12 @@ namespace shipsManagementAPI.Data.Repository
     public interface IOrderRepository : IDisposable
     {
         List<Order> GetOrders();
-        Order GetOrderById(int orderId);
+        Order GetOrderBySupplierId(int orderId);
+        Order GetOrderByCustomerId(int orderCustomerId);
         Order InsertOrder(CreateOrderDTO order);
         void DeleteOrder(int orderId);
         Order UpdateOrder(int orderId, UpdateOrderDTO order);
+        int SetOrderStatus(string orderStatus, int orderId);
         void Save();
     }
 }

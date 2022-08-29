@@ -9,7 +9,6 @@ namespace shipsManagementAPI.API.DTOs
     {
         public int customerId { get; set; }
         public int supplierId { get; set; }
-        public int OrderStatusId { get; set; }
         public string OrderTitle { get; set; }
         public string Destination { get; set; }
         public int OfferValueAmount { get; set; }
